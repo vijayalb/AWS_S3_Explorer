@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Python Flask Starter Application</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/stylesheets/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <h3 align="center"><b>Amazon S3</b></h3><br>
+    <div align="center">
+        <form role="form" action="/login" method="POST">
+            <dl>
+            <dt>Username:
+            <dd><input type="text" name="username" value="{{request.form.username}}">
+            </dl>
+            <p><input type="submit" value="Login">
+        </form>
+    </div>
+  </body>
+
+</html>
