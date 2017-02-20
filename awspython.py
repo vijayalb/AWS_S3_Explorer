@@ -24,13 +24,11 @@ def welcome():
 def login():
     if request.method == 'POST':
         user_name = request.form['username']
-        with open('login.txt', 'rb') as item:
-            registered_user_names = item.read().split('\n')
-            for name in registered_user_names:
-                if name == user_name:
-                    return render_template('response.html')
-                else:
-                    return "Not a registered User Name"
+        registered_user_names = open('login.txt', 'r').read().splitlines()
+        for name in registered_user_names:
+            if name == user_name:
+                return render_template('response.html')
+    return 'Not a registered User'
 
 
 # Listing the files from Amazon AWS S3 account

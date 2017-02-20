@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="static/stylesheets/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
   </head>
@@ -41,9 +40,13 @@
        <form action="/list" enctype="multipart/form-data" method="GET">
          <h5 align="center"><b>List Files</b></h5>
          <input type="submit" name="list" value="List">
-           {% for value in list_objects  %}
-	            <p> {{ value }} </p>
-            {% endfor  %}
+           <table border="1|0">
+               {% for value in list_objects  %}
+               <tr>
+                   <td><p> {{ value }} </p></td>
+               </tr>
+               {% endfor  %}
+           </table>
        </form>
     </div>
 
