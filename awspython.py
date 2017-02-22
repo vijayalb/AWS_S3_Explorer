@@ -1,13 +1,12 @@
 import boto3
 import os
-
 from flask import Flask, request, render_template
 
 # S3 Credentials and Connection to the Bucket
 s3 = boto3.resource('s3')
 my_bucket = 'mybucket006'
 bucket = s3.Bucket(my_bucket)
-
+image_extensions = ['jpg', 'png', 'JPG', 'JPEG', 'PNG']
 app = Flask(__name__, static_url_path='/temp', static_folder='temp')
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -46,20 +45,20 @@ def list_files():
 def upload():
     if request.method == 'POST':
         upload_file = request.files['file']
-        bucket.put_object(Key=upload_file.filename, Body=upload_file)
+        upload_file_extension = str(upload_file.filename).split('.', 1)[1]
+        if upload_file_extension in image_extensions:
+            bucket.put_object(Key=upload_file.filename, Body=upload_file)
+            return render_template('response.html')
+    return 'Not a valid file'
 
-    return render_template('response.html')
 
-
-# Downloading the user specified file from AWS S3 to local folder 'downloads'
+# Downloading the user specified file from AWS S3 using bucket policy
 @app.route('/download', methods=['GET', 'POST'])
 def download():
     if request.method == 'POST':
         filename = request.form['filename']
-        download_location = 'downloads/' + filename
-        bucket.download_file(filename, download_location)
-
-    return render_template('response.html')
+        url = "https://s3-us-west-2.amazonaws.com/mybucket006/"+filename
+        return render_template('response.html', url=url)
 
 
 # Deleting the user specified file from AWS S3 account
@@ -75,4 +74,4 @@ def delete():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
